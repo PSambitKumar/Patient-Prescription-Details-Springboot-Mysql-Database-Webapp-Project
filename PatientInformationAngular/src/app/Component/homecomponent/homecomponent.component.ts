@@ -65,7 +65,7 @@ export class HomecomponentComponent implements OnInit {
   }
 
   downloadPatientHistory(){
-    // window.open("http://localhost:8080/API/downloadPatientHistory/" + this.patientMaster.patientId);
+    window.open("http://localhost:8080/API/downloadPatientHistory/" + this.patientMaster.patientId);
     this.homeService.downloadPatientHistory(this.patientMaster.patientId).subscribe((data : any) => {
       console.log(data);
     });
