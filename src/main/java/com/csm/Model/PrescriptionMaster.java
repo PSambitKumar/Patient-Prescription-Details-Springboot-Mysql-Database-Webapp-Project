@@ -18,7 +18,7 @@ public class PrescriptionMaster {
     private String dateOfVisit;
     private String prescriptionDescription;
     @ManyToOne
-    private PatientMater patientId;
+    private PatientMaster patientId;
     @ManyToOne
     private DiseaseMaster diseaseId;
 
@@ -54,11 +54,11 @@ public class PrescriptionMaster {
 		this.prescriptionDescription = prescriptionDescription;
 	}
 
-	public PatientMater getPatientId() {
+	public PatientMaster getPatientId() {
 		return patientId;
 	}
 
-	public void setPatientId(PatientMater patientId) {
+	public void setPatientId(PatientMaster patientId) {
 		this.patientId = patientId;
 	}
 

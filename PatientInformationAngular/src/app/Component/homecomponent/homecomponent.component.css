@@ -1,0 +1,11 @@
+@import "bootstrap";
+
+#patientDiv {
+  margin: 4rem;
+  font-family: "Segoe UI Semibold", serif;
+}
+
+.patientInformation, .diseaseDetails{
+  padding : 2rem;
+}
+
