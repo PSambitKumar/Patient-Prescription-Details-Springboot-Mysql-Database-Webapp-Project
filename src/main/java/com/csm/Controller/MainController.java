@@ -9,19 +9,13 @@ import com.csm.Repository.PatientMasterRepository;
 import com.csm.Repository.PrescriptionMasterRepository;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import sun.misc.Contended;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -31,16 +25,21 @@ import java.util.List;
  * @Created On : 12/11/2022 - 10:58 AM
  */
 @Controller
+//@Deprecated
+@SuppressWarnings("deprecation")
 @RequestMapping(value = "/API/")
 @CrossOrigin(origins = "*")
 public class MainController {
 
-	@Autowired
-	private DiseaseMasterRepository diseaseMasterRepository;
-	@Autowired
-	private PatientMasterRepository patientMasterRepository;
-	@Autowired
-	private PrescriptionMasterRepository prescriptionMasterRepository;
+	private final DiseaseMasterRepository diseaseMasterRepository;
+	private final PatientMasterRepository patientMasterRepository;
+	private final PrescriptionMasterRepository prescriptionMasterRepository;
+
+	public MainController(DiseaseMasterRepository diseaseMasterRepository, PatientMasterRepository patientMasterRepository, PrescriptionMasterRepository prescriptionMasterRepository) {
+		this.diseaseMasterRepository = diseaseMasterRepository;
+		this.patientMasterRepository = patientMasterRepository;
+		this.prescriptionMasterRepository = prescriptionMasterRepository;
+	}
 
 	@ResponseBody
 	@GetMapping(value = "getPatientUsingPhone/{phone}")
@@ -141,7 +140,7 @@ public class MainController {
 //	          Adding Space
 			myDoc.add(new Paragraph("\n"));
 
-////		          Adding Heading Paragraph
+//		          Adding Heading Paragraph
 //			f.setSize(10);
 //			f.setStyle(com.itextpdf.text.Font.ITALIC);
 //			p = new Paragraph("CSF NO. : CSF NUMBER, "+"DATED  : Date\n",f);
@@ -208,78 +207,5 @@ public class MainController {
 		}catch (DocumentException | IOException e) {
 			e.printStackTrace();
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//		try {
-//			PatientMaster patientMaster = patientMasterRepository.getOne(Integer.parseInt(patientId));
-//			List<PrescriptionMaster> prescriptionMasterList = prescriptionMasterRepository.getPrescriptionMastersByPatientId(
-//				   patientMasterRepository.getOne(Integer.parseInt(patientId)));
-//
-////		Create A Beautiful PDF File Format Using Java
-//			Document document = new Document(PageSize.A4, 50, 50, 50, 50);
-//			String fileName = "PatientHistory.pdf";
-//			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(fileName));
-//			document.open();
-//
-////			Add Heading in PDF File
-//			Paragraph paragraph = new Paragraph("Patient's Medical History");
-//			paragraph.setAlignment(Element.ALIGN_CENTER);
-//			document.add(paragraph);
-//
-////			Add Patient Details in PDF File
-//			paragraph = new Paragraph("Patient Name : " + patientMaster.getPatientName());
-//			paragraph.setAlignment(Element.ALIGN_LEFT);
-//			document.add(paragraph);
-//			paragraph = new Paragraph("Patient Phone : " +patientMaster.getPatientPhone());
-//			paragraph.setAlignment(Element.ALIGN_LEFT);
-//			document.add(paragraph);
-//			paragraph = new Paragraph("Patient Address : " + "Bhubaneswar");
-//			paragraph.setAlignment(Element.ALIGN_LEFT);
-//			document.add(paragraph);
-//
-//			Date dob = patientMaster.getPatientDOB();
-//			int age = new Date().getYear() - dob.getYear();
-//			System.out.println("Age : " + age);
-//
-//			paragraph = new Paragraph("Patient Age : " + age);
-//			paragraph.setAlignment(Element.ALIGN_LEFT);
-//			document.add(paragraph);
-//
-//			response.setContentType("application/pdf");
-//			response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
-//			response.setHeader("Content-Length", String.valueOf(fileName.length()));
-//			response.setHeader("Content-Transfer-Encoding", "binary");
-//			response.setHeader("Pragma", "no-cache");
-//			response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-//			response.setHeader("Expires", "0");
-//
-//			ServletOutputStream outputStream = response.getOutputStream();
-//			PdfWriter.getInstance(document, outputStream);
-//			document.open();
-//			document.add(paragraph);
-//			document.close();
-//
-//			outputStream.flush();
-//			outputStream.close();
-//			response.flushBuffer();
-//
-//
-//		} catch (DocumentException | IOException e) {
-//			throw new RuntimeException(e);
-//		}
-
-
 	}
 }
